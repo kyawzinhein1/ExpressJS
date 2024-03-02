@@ -1,23 +1,30 @@
 const express = require("express");
 const path = require("path");
+const bodyParser = require("body-parser");
 
 const app = express();
 const postRoutes = require("./routes/post");
-const adminRoutes = require("./routes/admin");
+const { adminRoutes } = require("./routes/admin");
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/post", (req, res, next) => {
   console.log("I am post middleware");
   next();
 });
 
-app.use(postRoutes);
-app.use("/admin", adminRoutes);
-
 app.use((req, res, next) => {
-  console.log("I am middleware two");
+  console.log("I am parent middleware");
   next();
 });
+
+app.use("/admin", (req, res, next) => {
+  console.log("Admin middle approved");
+  next();
+});
+
+app.use("/admin", adminRoutes);
+app.use(postRoutes);
 
 app.listen(8080);
