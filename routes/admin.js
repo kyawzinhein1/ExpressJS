@@ -6,7 +6,8 @@ const router = express.Router();
 const posts = [];
 
 router.get("/create-post", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "views", "addPost.html"));
+  // res.sendFile(path.join(__dirname, "..", "views", "addPost.html"));
+  res.render("addPost", { title: "Create Post" });
 });
 
 router.post("/", (req, res) => {

@@ -1,0 +1,28 @@
+<%- include("./includes/header") %>
+<div class="form-container">
+  <div class="form">
+    <h1 class="title">Add a new post here!</h1>
+    <form action="/admin" method="post">
+      <div class="mx-auto">
+        <div class="form-data">
+          <div>
+            <label for="title">Enter title</label>
+            <input type="text" id="title" name="title" required />
+          </div>
+          <div>
+            <label for="description">Enter Description</label>
+            <textarea
+              name="description"
+              id="description"
+              cols="21"
+              rows="10"
+            ></textarea>
+          </div>
+          <button>Add Post</button> <br />
+          <a href="/" class="back-btn">Back</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<%- include("./includes/footer") %>
