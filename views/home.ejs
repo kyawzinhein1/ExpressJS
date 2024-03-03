@@ -1,10 +1,9 @@
 <%- include("./includes/header") %>
-
 <h1>Home Page</h1>
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis repudiandae,
 cum a consectetur, at fugit dolorum, corporis recusandae optio provident natus
 laboriosam nulla totam delectus ipsam repellat sed quod voluptates.
-<a href="/admin/create-post">Go to addPost</a>
+<a href="/admin/create-post">Add Post</a>
 <hr />
 
 <h1 class="title">Posts</h1>
@@ -12,11 +11,11 @@ laboriosam nulla totam delectus ipsam repellat sed quod voluptates.
 <div>
   <h4>Nothing to see?</h4>
   <p>Create a new post now !!!</p>
-  <a href="/admin/create-post">Go to addPost</a>
+  <a href="/admin/create-post">Add Post</a>
 </div>
 <% }%> <% for(let post of postsArr) { %>
 <div class="post-box">
   <p class="post-title"><%= post.title %></p>
-  <p class="post-des"><%= post.description %></p>
+  <a href="/post/<%= post.id %>">See More...</a>
 </div>
 <% } %> <%- include("./includes/footer") %>
