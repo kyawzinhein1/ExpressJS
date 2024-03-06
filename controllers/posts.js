@@ -4,47 +4,43 @@ const Post = require("../models/post");
 
 exports.createPost = (req, res) => {
   const { title, description, photo } = req.body;
-  // console.log(`Title value is ${title} & description is ${description}`);
-  const post = new Post(title, description, photo);
-  post
-    .setPost()
-    .then(() => {
+  Post.create({
+    title,
+    description,
+    imgUrl: photo,
+  })
+    .then((result) => {
+      console.log(result);
+      console.log("Post create success");
       res.redirect("/");
     })
     .catch((err) => console.log(err));
-  // posts.push({
-  //   id: Math.random(),
-  //   title,
-  //   description,
-  //   photo,
-  // });
-  res.redirect("/");
 };
 
 exports.renderCreatePage = (req, res) => {
-  // res.sendFile(path.join(__dirname, "..", "views", "addPost.html"));
   res.render("addPost", { title: "Create Post" });
 };
 
 exports.getPosts = (req, res) => {
-  // console.log(posts);
-  // res.sendFile(path.join(__dirname, "..", "views", "homepage.html"));
-  Post.getAllPost()
-    .then(([rows]) => {
-      console.log(rows);
-      res.render("home", { title: "Hello", postsArr: rows });
+  Post.findAll()
+    .then((posts) => {
+      res.render("home", { title: "Home Page", postsArr: posts });
     })
     .catch((err) => console.log(err));
 };
 
 exports.getPost = (req, res) => {
-  const postId = Number(req.params.postId);
-  console.log(postId);
-  // const post = posts.find((post) => post.id == postId);
-  // console.log(post);
-  Post.getSinglePost(postId)
-    .then(([row]) => {
-      res.render("details", { title: "Post Details Page", post: row[0] });
+  const postId = req.params.postId;
+
+  Post.findByPk(postId)
+    .then((post) => {
+      res.render("details", { title: "Post Details Page", post });
     })
     .catch((err) => console.log(err));
+
+  // Post.findOne({ where: { id: postId } })
+  //   .then((post) => {
+  //     res.render("details", { title: "Post Details Page", post });
+  //   })
+  //   .catch((err) => console.log(err));
 };
