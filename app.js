@@ -5,6 +5,9 @@ const bodyParser = require("body-parser");
 
 const sequelize = require("./util/database");
 
+const Post = require("./models/post");
+const User = require("./models/user");
+
 const app = express();
 
 app.set("view engine", "ejs");
@@ -15,6 +18,16 @@ const adminRoutes = require("./routes/admin");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use((req, res, next) => {
+  User.findByPk(1)
+    .then((user) => {
+      req.user = user;
+      // console.log(user);
+      next();
+    })
+    .catch((err) => console.log(err));
+});
 
 app.use("/post", (req, res, next) => {
   console.log("I am post middleware");
@@ -34,10 +47,22 @@ app.use("/admin", (req, res, next) => {
 app.use("/admin", adminRoutes);
 app.use(postRoutes);
 
+Post.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
+User.hasMany(Post);
+
 sequelize
   .sync()
   .then((result) => {
-    console.log(result);
+    return User.findByPk(1);
+  })
+  .then((user) => {
+    if (!user) {
+      return User.create({ name: "Admin", email: "admin@gmail.com" });
+    }
+    return user;
+  })
+  .then((user) => {
+    // console.log(user);
     app.listen(8080);
   })
   .catch((err) => console.log(err));
