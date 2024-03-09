@@ -2,17 +2,18 @@
 <div class="form-container">
   <div class="form">
     <a href="/" class="back-btn">Back</a>
-    <h1 class="title">Add a new post here!</h1>
-    <form action="/admin" method="post">
+    <h1 class="title">Edit your post</h1>
+    <form action="/admin/post-edit/" method="post">
       <div class="mx-auto">
         <div class="form-data">
+            <input type="text" name="postId" value="<%= post.id %>" hidden>
           <div>
             <label for="title">Enter title</label>
-            <input type="text" id="title" name="title" required />
+            <input type="text" id="title" name="title" value="<%= post.title %>" required />
           </div>
           <div>
             <label for="title">Enter Photo</label>
-            <input type="text" id="photo" name="photo" required />
+            <input type="text" id="photo" name="photo" value="<%= post.imgUrl %>" required />
           </div>
           <div>
             <label for="description">Enter Description</label>
@@ -21,9 +22,9 @@
               id="description"
               cols="21"
               rows="10"
-            ></textarea>
+            ><%= post.description %></textarea>
           </div>
-          <button>Add Post</button> <br />
+          <button>Update Post</button> <br />
         </div>
       </div>
     </form>

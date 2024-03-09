@@ -1,8 +1,13 @@
 <%- include("./includes/header") %>
 <section class="detail">
+  <a href="/" class="back-btn">Back</a>
   <h1><%= post.title %></h1>
   <img src="<%= post.imgUrl %>" alt="<%= post.title %>" />
   <p><%= post.description %></p>
-  <a href="/" class="back-btn">Back</a>
+  <hr />
+  <form action="/admin/post/<%= post.id %>" method="post">
+    <button>Delete Post</button>
+  </form>
+  <a href="/admin/post-edit/<%= post.id %>">Edit Post</a>
 </section>
 <%- include("./includes/footer") %>
