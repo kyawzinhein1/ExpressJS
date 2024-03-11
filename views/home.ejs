@@ -16,6 +16,6 @@ laboriosam nulla totam delectus ipsam repellat sed quod voluptates.
 <% }%> <% for(let post of postsArr) { %>
 <div class="post-box">
   <p class="post-title"><%= post.title %></p>
-  <a href="/post/<%= post.id %>">See More...</a>
+  <a href="/post/<%= post._id %>">See More...</a>
 </div>
 <% } %> <%- include("./includes/footer") %>

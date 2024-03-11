@@ -1,8 +1,11 @@
 <%- include("./includes/header") %>
 <section class="detail">
   <h1><%= post.title %></h1>
-  <img src="<%= post.photo %>" alt="<%= post.title %>">
+  <img src="<%= post.imgUrl %>" alt="<%= post.title %>">
   <p><%= post.description %></p>
+  <hr>
   <a href="/" class="back-btn">Back</a>
+  <button>Delete</button>
+  <button>Edit</button>
 </section>
 <%- include("./includes/footer") %>
