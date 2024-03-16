@@ -38,12 +38,12 @@ app.use(
 );
 
 // custom middleware(user acc)
-app.use((req, res, next) => {
-  User.findById("65f4fdc6bb5b1fa6bb338916").then((user) => {
-    req.user = user;
-    next();
-  });
-});
+// app.use((req, res, next) => {
+//   User.findById("65f4fdc6bb5b1fa6bb338916").then((user) => {
+//     req.user = user;
+//     next();
+//   });
+// });
 
 // route define
 app.use("/admin", adminRoutes);
@@ -57,16 +57,15 @@ mongoose
     app.listen(8080);
     console.log("Connected to Mongodb!");
     // user create
-    return User.findOne().then((user) => {
-      if (!user) {
-        User.create({
-          username: "admin",
-          email: "admin@gmail.com",
-          password: "admin123",
-        });
-      }
-      return user;
-    });
+    // return User.findOne().then((user) => {
+    //   if (!user) {
+    //     User.create({
+    //       username: "admin",
+    //       email: "admin@gmail.com",
+    //       password: "admin123",
+    //     });
+    //   }
+    //   return user;
+    // });
   })
-  .then((result) => console.log(result))
   .catch((err) => console.log(err));
