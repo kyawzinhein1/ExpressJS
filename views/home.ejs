@@ -1,9 +1,15 @@
 <%- include("./includes/header") %>
 <h1>Home Page</h1>
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis repudiandae,
-cum a consectetur, at fugit dolorum, corporis recusandae optio provident natus
-laboriosam nulla totam delectus ipsam repellat sed quod voluptates.
-<a href="/admin/create-post">Add Post</a>
+<p>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis repudiandae,
+  cum a consectetur, at fugit dolorum, corporis recusandae optio provident natus
+  laboriosam nulla totam delectus ipsam repellat sed quod voluptates.
+</p>
+<% if(isLogin) { %>
+<a href="/admin/create-post">Create Post</a>
+<% } else { %>
+<a href="/login">Create a new account</a>
+<% } %>
 <hr />
 
 <h1 class="title">Posts</h1>
