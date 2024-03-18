@@ -3,6 +3,7 @@
     <div class="form">
         <h1 class="title">Login here!</h1>
         <form action="/login" method="post">
+          <input hidden value="<%= csrfToken %>" name="_csrf" />
         <a href="/" class="back-btn">Back</a>
       <div class="mx-auto">
         <div class="form-data">

@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const session = require("express-session");
 const mongoStore = require("connect-mongodb-session")(session);
+const csrf = require("csurf");
 
 const app = express();
 
@@ -20,10 +21,15 @@ const authRoutes = require("./routes/auth");
 // model
 const User = require("./models/user");
 
+// middleware
+const { isLogin } = require("./middleware/is-login");
+
 const store = new mongoStore({
   uri: process.env.MONGODB_URI,
   collection: "sessions",
 });
+
+const csrfProtect = csrf();
 
 // middlewares
 app.use(express.static(path.join(__dirname, "public")));
@@ -36,17 +42,31 @@ app.use(
     store,
   })
 );
+app.use(csrfProtect);
 
 // custom middleware(user acc)
-// app.use((req, res, next) => {
-//   User.findById("65f4fdc6bb5b1fa6bb338916").then((user) => {
-//     req.user = user;
-//     next();
-//   });
-// });
+app.use((req, res, next) => {
+  if (req.session.isLogin === undefined) {
+    return next();
+  }
+  User.findById(req.session.userInfo._id)
+    .select("_id email")
+    .then((user) => {
+      req.user = user;
+      // console.log(req.user);
+      next();
+    });
+});
+
+// to send csrf token for every page render
+app.use((req, res, next) => {
+  res.locals.isLogin = req.session.isLogin ? true : false;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
 
 // route define
-app.use("/admin", adminRoutes);
+app.use("/admin", isLogin, adminRoutes);
 app.use(postRoutes);
 app.use(authRoutes);
 
@@ -56,16 +76,5 @@ mongoose
   .then(() => {
     app.listen(8080);
     console.log("Connected to Mongodb!");
-    // user create
-    // return User.findOne().then((user) => {
-    //   if (!user) {
-    //     User.create({
-    //       username: "admin",
-    //       email: "admin@gmail.com",
-    //       password: "admin123",
-    //     });
-    //   }
-    //   return user;
-    // });
   })
   .catch((err) => console.log(err));
