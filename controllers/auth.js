@@ -1,8 +1,12 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+
 // render register page
 exports.getRegisterPage = (req, res) => {
-  res.render("auth/register", { title: "Register" });
+  res.render("auth/register", {
+    title: "Register",
+    errMsg: req.flash("error"),
+  });
 };
 
 // handle register
@@ -11,6 +15,7 @@ exports.registerAccount = (req, res) => {
   User.findOne({ email })
     .then((user) => {
       if (user) {
+        req.flash("error", "Email is already have an account");
         return res.redirect("/register");
       }
       return bcrypt
@@ -30,7 +35,7 @@ exports.registerAccount = (req, res) => {
 
 // render login page
 exports.getLoginPage = (req, res) => {
-  res.render("auth/login", { title: "Hellopage" });
+  res.render("auth/login", { title: "Hellopage", errMsg: req.flash("error") });
 };
 
 // handle login
@@ -39,6 +44,7 @@ exports.postLoginData = (req, res) => {
   User.findOne({ email })
     .then((user) => {
       if (!user) {
+        req.flash("error", "Check your login informations and try again");
         return res.redirect("/login");
       }
       bcrypt
@@ -57,7 +63,6 @@ exports.postLoginData = (req, res) => {
         .catch((err) => console.log(err));
     })
     .catch((err) => console.log(err));
-  // res.redirect("/");
 };
 
 // handle logout

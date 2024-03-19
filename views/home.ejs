@@ -9,7 +9,7 @@
 <a href="/admin/create-post">Create Post</a>
 <form action="/logout" method="post">
   <input hidden value="<%= csrfToken %>" name="_csrf" />
-  <button>Logout</button>
+  <button class="logout-btn">Logout</button>
 </form>
 <% } else { %>
 <a href="/login">Login to existing account</a>

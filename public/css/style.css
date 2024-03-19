@@ -7,7 +7,8 @@
   text-align: center;
 }
 
-a {
+a,
+.logout-btn {
   display: block;
   margin: 10px 0;
   color: #fff;
@@ -27,14 +28,16 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .form {
-  background-color: bisque;
+  background-color: #c0bebe;
   border-radius: 10px;
   padding: 20px;
-  width: 400px;
+  width: 300px;
   margin: auto;
+  margin-top: 60px;
 }
 
 .title {
@@ -42,9 +45,7 @@ a:hover {
 }
 
 .mx-auto {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 95%;
 }
 
 .back-btn {
@@ -57,6 +58,7 @@ label {
 
 input,
 textarea {
+  width: 100%;
   padding: 10px 8px;
   border-radius: 6px;
   outline: none;
@@ -67,11 +69,18 @@ button {
   color: #fff;
   background-color: #000;
   border: none;
-  width: fit-content;
+  width: 100%;
   padding: 8px 10px;
   margin-top: 10px;
   border-radius: 6px;
   cursor: pointer;
+}
+
+.edit-btn {
+  color: #fff;
+  background-color: green;
+  width: 95%;
+  text-align: center;
 }
 
 .post-box {
@@ -89,13 +98,28 @@ button {
   font-weight: 600;
 }
 
-.detail h1{
+.detail h1 {
   text-align: center;
   font-weight: 800;
 }
 
-.detail img{
+.detail img {
   width: 100%;
   height: 16rem;
   object-fit: cover;
+}
+
+.alert {
+  color: #fff;
+  text-align: center;
+  background-color: #cf0707;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.alert-warn {
+  text-align: center;
+  background-color:#cece13;
+  border-radius: 5px;
+  padding: 5px 10px;
 }

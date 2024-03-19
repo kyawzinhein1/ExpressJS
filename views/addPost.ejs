@@ -1,8 +1,8 @@
 <%- include("./includes/header") %>
 <div class="form-container">
   <div class="form">
-    <h1 class="title">Add a new post here!</h1>
     <a href="/" class="back-btn">Back</a>
+    <h1 class="title">Add a new post here!</h1>
     <form action="/admin" method="post">
       <input hidden value="<%= csrfToken %>" name="_csrf" />
       <div class="mx-auto">
