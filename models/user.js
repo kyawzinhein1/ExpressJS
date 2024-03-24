@@ -13,6 +13,8 @@ const userSchema = new Schema({
     required: true,
     minLength: 6,
   },
+  resetToken : String,
+  tokenExpiration : Date,
 });
 
 module.exports = model("Users", userSchema);

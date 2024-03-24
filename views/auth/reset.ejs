@@ -1,12 +1,12 @@
 <%- include("../includes/header") %>
 <div class="form-container">
   <div class="form">
-    <a href="/" class="back-btn">Back</a>
-    <h1 class="title">Login here!</h1>
+    <a href="/login" class="back-btn">Login</a>
+    <h1 class="title">Reset Password</h1>
     <% if(errMsg.length){ %>
       <p class="alert"><%= errMsg %></p>
       <% } %>
-    <form action="/login" method="post">
+    <form action="/reset" method="post">
           <input hidden value="<%= csrfToken %>" name="_csrf" />
       <div class="mx-auto">
         <div class="form-data">
@@ -14,12 +14,7 @@
             <label for="email">Enter Email</label>
             <input type="email" id="email" name="email" autofocus/>
           </div>
-          <label for="password">Enter Password</label>
-            <input type="password" id="password" name="password" />
-          </div>
-            <a href="/reset-password">Forget Password</a>
-        </div>
-        <button>Login</button>
+        <button>Reset Password</button>
       </div>
     </form>
   </div>
