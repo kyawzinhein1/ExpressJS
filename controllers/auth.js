@@ -188,8 +188,8 @@ exports.changeNewPassword = (req, res) => {
       resetUser.tokenExpiration = undefined;
       return resetUser.save();
     })
-    .then(_ => {
-      res.redirect("/login");
+    .then(() => {
+      res.redirect("/");
     })
     .catch((err) => {
       console.log(err);
