@@ -1,35 +1,57 @@
 <%- include("./includes/header") %>
-<h1>Home Page</h1>
-<p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis repudiandae,
-  cum a consectetur, at fugit dolorum, corporis recusandae optio provident natus
-  laboriosam nulla totam delectus ipsam repellat sed quod voluptates.
-</p>
+<section class="header">
+  <h1>Blog.VR</h1>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
+    repudiandae, cum a consectetur, at fugit dolorum, corporis recusandae optio
+    provident natus laboriosam nulla totam delectus ipsam repellat sed quod
+    voluptates. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    Consequuntur tempore, voluptas consectetur architecto tenetur, at asperiores
+    a cupiditate quis, debitis quam blanditiis qui itaque sequi ullam deleniti
+    minus aliquam illo. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    Maiores, tempore optio. Odio, fuga. Possimus, doloribus eaque optio
+    asperiores laborum vel. Enim assumenda laborum accusamus modi repudiandae
+    fugiat optio vero rerum.
+  </p>
+</section>
 <% if(isLogin) { %>
-<a href="/admin/create-post">Create Post as <%= currentUserEmail%></a>
-<form action="/logout" method="post">
-  <input hidden value="<%= csrfToken %>" name="_csrf" />
-  <button class="logout-btn">Logout</button>
-</form>
+<div class="login-div">
+  <div>
+    <a href="/admin/create-post">Create Post as <%= currentUserEmail%></a>
+    <form action="/logout" method="post">
+      <input hidden value="<%= csrfToken %>" name="_csrf" />
+      <button>Logout</button>
+    </form>
+  </div>
+</div>
 <% } else { %>
-<a href="/login">Login to existing account</a>
-<a href="/register">Create a new account</a>
+<div class="login-div">
+  <div>
+    <a href="/login">Login to existing account</a>
+    <a href="/register">Create a new account</a>
+  </div>
+</div>
 <% } %>
 <hr />
 
-<h1 class="title">Posts</h1>
+<h1 class="title">Recent Posts</h1>
 <% if(postsArr.length === 0 && isLogin) {%>
 <div>
   <h4>Nothing to see?</h4>
   <p>Create a new post now !!!</p>
   <a href="/admin/create-post">Add Post</a>
 </div>
-<% }%> <% for(let post of postsArr) { %>
-<div class="post-box">
-  <div>
+<% }%>
+
+<div class="post-container">
+  <% for(let post of postsArr) { %>
+  <div class="post-box">
     <p class="post-title"><%= post.title %></p>
-    <p>Post by => <%= post.userId.email%></p>
+    <p class="post-email">Post by : <%= post.userId.email%></p>
+    <p class="post-des"><%= post.description.substr(0,106) %></p>
+    <a href="/post/<%= post._id %>">Read More...</a>
+    <hr>
   </div>
-  <a href="/post/<%= post._id %>">See More...</a>
+  <% } %>
 </div>
-<% } %> <%- include("./includes/footer") %>
+<%- include("./includes/footer") %>
