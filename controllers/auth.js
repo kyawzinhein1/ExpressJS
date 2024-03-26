@@ -128,6 +128,7 @@ exports.getResetPage = (req, res) => {
   res.render("auth/reset", {
     title: "Reset Password",
     errMsg: req.flash("error"),
+    oldFormData: { email: "" },
   });
 };
 
@@ -141,6 +142,16 @@ exports.getFeedbackPage = (req, res) => {
 // reset password link send
 exports.resetLinkSend = (req, res) => {
   const { email } = req.body;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render("auth/reset", {
+      title: "Reset Password",
+      errMsg: errors.array()[0].msg,
+      oldFormData: { email },
+    });
+  }
+
   crypto.randomBytes(32, (err, buffer) => {
     if (err) {
       console.log(err);
@@ -150,8 +161,11 @@ exports.resetLinkSend = (req, res) => {
     User.findOne({ email })
       .then((user) => {
         if (!user) {
-          req.flash("error", "No Account found with this Email");
-          return res.redirect("/reset-password");
+          return res.status(422).render("auth/reset", {
+            title: "Reset Password",
+            errMsg: "No account exist with this email.",
+            oldFormData: { email },
+          });
         }
         user.resetToken = token;
         user.tokenExpiration = Date.now() + 1800000;
