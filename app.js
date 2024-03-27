@@ -22,8 +22,12 @@ const authRoutes = require("./routes/auth");
 // model
 const User = require("./models/user");
 
+// controller
+const errorController = require("./controllers/error");
+
 // middleware
 const { isLogin } = require("./middleware/is-login");
+const { render } = require("ejs");
 
 const store = new mongoStore({
   uri: process.env.MONGODB_URI,
@@ -71,6 +75,10 @@ app.use((req, res, next) => {
 app.use("/admin", isLogin, adminRoutes);
 app.use(postRoutes);
 app.use(authRoutes);
+
+app.all("*", errorController.getErrorPage);
+
+app.use(errorController.get500Page);
 
 // connect with Mongodb
 mongoose

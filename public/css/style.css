@@ -143,6 +143,49 @@
 .back-btn {
   float: right;
 }
+
+.edit-btn {
+  color: #fff;
+  background-color: green;
+  width: 95%;
+  text-align: center;
+}
+
+.alert {
+  color: #fff;
+  text-align: center;
+  background-color: #cf0707;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.alert-warn {
+  text-align: center;
+  background-color: #cece13;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.feedback {
+  text-align: center;
+}
+
+.not-found{
+  text-align: center;
+  margin-top: 30vh;
+}
+
+.not-found h1{
+  font-size: 70px;
+}
+
+.not-found a{
+  margin: auto;
+  margin-top: 30px;
+}
+
+/* global styles */
+
 label {
   display: block;
   margin: 10px 0;
@@ -178,30 +221,4 @@ button {
   margin-top: 10px;
   border-radius: 6px;
   cursor: pointer;
-}
-
-.edit-btn {
-  color: #fff;
-  background-color: green;
-  width: 95%;
-  text-align: center;
-}
-
-.alert {
-  color: #fff;
-  text-align: center;
-  background-color: #cf0707;
-  border-radius: 5px;
-  padding: 5px 10px;
-}
-
-.alert-warn {
-  text-align: center;
-  background-color: #cece13;
-  border-radius: 5px;
-  padding: 5px 10px;
-}
-
-.feedback {
-  text-align: center;
 }
