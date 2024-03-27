@@ -1,7 +1,18 @@
 const Post = require("../models/post");
+const { validationResult } = require("express-validator");
 
 exports.createPost = (req, res) => {
   const { title, description, photo } = req.body;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).render("addPost", {
+      title: "Create Post",
+      errMsg: errors.array()[0].msg,
+      oldFormData: { title, description, photo },
+    });
+  }
+
   Post.create({ title, description, imgUrl: photo, userId: req.user })
     .then((result) => {
       res.redirect("/");
@@ -10,7 +21,11 @@ exports.createPost = (req, res) => {
 };
 
 exports.renderCreatePage = (req, res) => {
-  res.render("addPost", { title: "Create Post" });
+  res.render("addPost", {
+    title: "Create Post",
+    errMsg: "",
+    oldFormData: { title: "", description: "", photo: "" },
+  });
 };
 
 exports.renderHomePage = (req, res) => {
@@ -52,13 +67,35 @@ exports.getEditPost = (req, res) => {
       if (!post) {
         return res.redirect("/");
       }
-      res.render("edit", { title: post.title, post });
+      res.render("edit", {
+        postId: undefined,
+        title: post.title,
+        post,
+        errMsg: "",
+        oldFormData: {
+          title: undefined,
+          description: undefined,
+          photo: undefined,
+        },
+        isValidationFail: false,
+      });
     })
     .catch((err) => console.log(err));
 };
 
 exports.updatePost = (req, res) => {
   const { postId, title, description, photo } = req.body;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).render("edit", {
+      postId,
+      title,
+      errMsg: errors.array()[0].msg,
+      oldFormData: { title, description, photo },
+      isValidationFail: true,
+    });
+  }
 
   Post.findById(postId)
     .then((post) => {

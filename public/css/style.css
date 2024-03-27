@@ -59,6 +59,7 @@
 
 .post-email {
   color: #5a5858;
+  font-weight: 700;
 }
 
 .detail {
@@ -109,9 +110,15 @@
   background-color: #c0bebe;
   border-radius: 10px;
   padding: 20px;
-  width: 300px;
+  width: 500px;
   margin: auto;
   margin-top: 60px;
+}
+
+.form-title{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .title {

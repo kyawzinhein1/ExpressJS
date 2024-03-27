@@ -3,17 +3,20 @@
   <div class="form">
     <a href="/" class="back-btn">Back</a>
     <h1 class="title">Add a new post here!</h1>
-    <form action="/admin" method="post">
+    <% if(errMsg.length){ %>
+      <p class="alert"><%= errMsg %></p>
+      <% } %>
+    <form action="/admin" method="post" novalidate>
       <input hidden value="<%= csrfToken %>" name="_csrf" />
       <div class="mx-auto">
         <div class="form-data">
           <div>
             <label for="title">Enter title</label>
-            <input type="text" id="title" name="title" required />
+            <input type="text" id="title" name="title" required value="<%= oldFormData.title %>" />
           </div>
           <div>
             <label for="title">Enter Photo</label>
-            <input type="text" id="photo" name="photo" required />
+            <input type="text" id="photo" name="photo" required value="<%= oldFormData.photo %>" />
           </div>
           <div>
             <label for="description">Enter Description</label>
@@ -22,7 +25,7 @@
               id="description"
               cols="21"
               rows="5"
-            ></textarea>
+            ><%= oldFormData.description %></textarea>
           </div>
           <button>Add Post</button>
         </div>

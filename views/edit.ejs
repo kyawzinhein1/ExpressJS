@@ -1,20 +1,34 @@
 <%- include("./includes/header") %>
 <div class="form-container">
   <div class="form">
-    <h1 class="title">Edit your post!</h1>
-    <a href="/" class="back-btn">Back</a>
-    <form action="/admin/edit-post" method="post">
+    <div>
+      <a href="/" class="back-btn">Back</a>
+    </div>
+    <div class="form-title">
+      <div>
+        <h1 class="title">Edit your post!</h1>
+      </div>
+    </div>
+    <% if(errMsg.length){ %>
+    <p class="alert"><%= errMsg %></p>
+    <% } %>
+    <form action="/admin/edit-post" method="post" novalidate>
       <input hidden value="<%= csrfToken %>" name="_csrf" />
       <div class="mx-auto">
         <div class="form-data">
-          <input type="text" value="<%=post._id %>" name="postId" hidden />
+          <input
+            type="text"
+            value="<%= isValidationFail? oldFormData.postId : post._id %>"
+            name="postId"
+            hidden
+          />
           <div>
             <label for="title">Enter title</label>
             <input
               type="text"
               id="title"
               name="title"
-              value="<%= post.title %>"
+              value="<%= isValidationFail ? oldFormData.title : post.title %>"
             />
           </div>
           <div>
@@ -23,13 +37,13 @@
               type="text"
               id="photo"
               name="photo"
-              value="<%= post.imgUrl %>"
+              value="<%= isValidationFail ? oldFormData.photo : post.imgUrl %>"
             />
           </div>
           <div>
             <label for="description">Enter Description</label>
             <textarea name="description" id="description" cols="21" rows="10">
-                <%= post.description %>
+                <%= isValidationFail ? oldFormData.description : post.description %>
             </textarea>
           </div>
           <button>Update Post</button>
