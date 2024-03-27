@@ -20,6 +20,9 @@ const postSchema = new Schema({
     ref: "Users",
     required: true,
   },
+},
+{
+  timestamps: true,
 });
 
 module.exports = model("Posts", postSchema);
